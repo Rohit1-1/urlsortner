@@ -1,9 +1,10 @@
 const express=require("express")
 const {connection}=require('./config/db')
 const {Url_Model}=require('./model/Urlmodel')
+const cors=require('cors')
 
 const app=express()
-
+app.use(cors())
 app.use(express.json())
 
 
@@ -38,11 +39,42 @@ try {
 
 
 app.post('/',async(req,res)=>{
+    let {url,sort_url}=req.body
+    if(url&&sort_url){
+        console.log('true');
+    }
+
+//console.log(sort_url.length)
 try {
-    let url=new Url_Model(req.body)
-    url.save();
-    res.send("done")
+    if(url&&sort_url&&sort_url?.length>0){
+     let unique=await Url_Model.find({sort_url})
+     if(unique.length>0){
+        res.send({"keyexist":true})
+     }
+     else{
+        let newurl=new Url_Model(req.body)
+        newurl.save();
+       // console.log(newurl)
+        res.send({"sortUrl":true,urlId:newurl.sort_url})
+     }
+     
+        console.log((unique));
+    }
+    else if(url&&sort_url?.length===0){
+        let newurl=new Url_Model({url})
+        newurl.save();
+        console.log(newurl)
+        res.send({"sortUrl":true,urlId:newurl.sort_url})
+    }
+    else{
+        let newurl=new Url_Model(req.body)
+        newurl.save();
+        console.log(newurl)
+        res.send({"sortUrl":true,urlId:newurl.sort_url})
+    }
+    
 } catch (error) {
     console.log(error);
+    res.send({"sortUrl":false})
 }
 })
