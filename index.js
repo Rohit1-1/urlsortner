@@ -21,6 +21,8 @@ app.get('/',(req,res)=>{
     // res.redirect('https://www.youtube.com/watch?v=SLpUKAGnm-g')
    res.send({"msg":"Home Page"})
 })
+
+
 app.get('/:id',async(req,res)=>{
     let id=req.params.id;
 try {
@@ -28,10 +30,9 @@ try {
    res.redirect(url.url)
    //res.send(url)
 } catch (error) {
-    
+    res.send({"msg":"something went wrong"})
 }
-    // res.redirect('https://www.youtube.com/watch?v=SLpUKAGnm-g')
-   res.send({"msg":"Home Page"})
+
 })
 
 
