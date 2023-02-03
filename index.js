@@ -17,9 +17,10 @@ app.listen(8080,async()=>{
     }
 })
 
-app.get('/',(req,res)=>{
+app.get('/',async (req,res)=>{
+    let url=await Url_Model.find()
     // res.redirect('https://www.youtube.com/watch?v=SLpUKAGnm-g')
-   res.send({"msg":"Home Page"})
+   res.send({"msg":"Home Page",url})
 })
 
 
