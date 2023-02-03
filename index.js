@@ -1,7 +1,7 @@
 const express=require("express")
 const {connection}=require('./config/db')
 const {Url_Model}=require('./model/Urlmodel')
-const cors=require('cors')
+const cors=require("cors");
 
 const app=express()
 app.use(cors())
