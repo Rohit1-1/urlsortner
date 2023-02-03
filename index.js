@@ -49,13 +49,13 @@ try {
     if(url&&sort_url&&sort_url?.length>0){
      let unique=await Url_Model.find({sort_url})
      if(unique.length>0){
-        res.send({"keyexist":true})
+        res.send({"keyexist":true,"sortUrl":false})
      }
      else{
         let newurl=new Url_Model(req.body)
         newurl.save();
        // console.log(newurl)
-        res.send({"sortUrl":true,urlId:newurl.sort_url})
+        res.send({"sortUrl":true,"keyexist":false,urlId:newurl.sort_url})
      }
      
         console.log((unique));
@@ -64,17 +64,17 @@ try {
         let newurl=new Url_Model({url})
         newurl.save();
         console.log(newurl)
-        res.send({"sortUrl":true,urlId:newurl.sort_url})
+        res.send({"sortUrl":true,"keyexist":false,urlId:newurl.sort_url})
     }
     else{
         let newurl=new Url_Model(req.body)
         newurl.save();
         console.log(newurl)
-        res.send({"sortUrl":true,urlId:newurl.sort_url})
+        res.send({"sortUrl":true,"keyexist":false,urlId:newurl.sort_url})
     }
     
 } catch (error) {
     console.log(error);
-    res.send({"sortUrl":false})
+    res.send({"sortUrl":false,"keyexist":false})
 }
 })
